@@ -6,18 +6,18 @@ import os
 
 # Calculate dates
 today = datetime.now()
-week_ago = today - timedelta(days=7)
+week_ago = today - timedelta(days=6)
 
 # Format dates for API (YYYY-MM-DD)
 start_date = week_ago.strftime("%Y-%m-%d")
 end_date = today.strftime("%Y-%m-%d")
 
 # Get Kuala Lumpur weather for past week
-url = f"https://api.open-meteo.com/v1/forecast?latitude=3.14&longitude=101.69&start_date={start_date}&end_date={end_date}&daily=temperature_2m_max,temperature_2m_min"
+url = f"https://api.open-meteo.com/v1/forecast?latitude=3.14&longitude=101.69&start_date={start_date}&end_date={end_date}&daily=temperature_2m_max,temperature_2m_min&timezone=Asia/Kuala_Lumpur"
 
 response = requests.get(url)
+response.raise_for_status()
 data = response.json()
-print(data)
 
 # --------------------------------
 
@@ -54,7 +54,7 @@ plt.xticks(rotation=45)
 plt.tight_layout()
 
 # Save the plot
-plt.savefig('weather_chart.png')
+plt.savefig('weather_chart_KL.png')
 plt.show()
 
 # ------------------------------
